@@ -1,8 +1,6 @@
-package net.ceronio.dstvguide.apiobjects;
+package net.ceronio.dstvguide.guideapi;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * User: macky

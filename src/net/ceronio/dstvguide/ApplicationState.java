@@ -1,8 +1,8 @@
 package net.ceronio.dstvguide;
 
-import net.ceronio.dstvguide.apiobjects.Channel;
-import net.ceronio.dstvguide.apiobjects.EventsByChannelList;
-import net.ceronio.dstvguide.apiobjects.Schedule;
+import net.ceronio.dstvguide.guideapi.Channel;
+import net.ceronio.dstvguide.guideapi.EventsByChannelList;
+import net.ceronio.dstvguide.guideapi.Schedule;
 
 /**
  * User: macky

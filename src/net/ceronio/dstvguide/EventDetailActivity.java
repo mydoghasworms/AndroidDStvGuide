@@ -2,8 +2,7 @@ package net.ceronio.dstvguide;
 
 import android.app.Activity;
 import android.os.Bundle;
-import net.ceronio.dstvguide.ApplicationState;
-import net.ceronio.dstvguide.apiobjects.Schedule;
+import net.ceronio.dstvguide.guideapi.Schedule;
 
 /**
  * User: macky

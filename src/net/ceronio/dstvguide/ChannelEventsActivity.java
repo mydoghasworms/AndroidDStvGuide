@@ -1,17 +1,15 @@
 package net.ceronio.dstvguide;
 
-import android.*;
 import android.R;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import net.ceronio.dstvguide.apiobjects.Channel;
-import net.ceronio.dstvguide.apiobjects.Schedule;
+import net.ceronio.dstvguide.guideapi.Channel;
+import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
+import net.ceronio.dstvguide.guideapi.Schedule;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
@@ -22,14 +20,14 @@ import java.util.ArrayList;
  */
 public class ChannelEventsActivity extends ListActivity  {
 
-    private APIWrapper wrapper;
+    private ReSTAPIWrapper wrapper;
     private ApplicationState state;
     private Schedule[] schedules;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
-        wrapper = APIWrapper.getInstance();
+        wrapper = ReSTAPIWrapper.getInstance();
         state = ApplicationState.getInstance();
         super.onCreate(savedInstanceState);
         ArrayList<String> events = new ArrayList<String>();

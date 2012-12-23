@@ -1,10 +1,6 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.guideapi;
 
 import com.google.gson.Gson;
-import net.ceronio.dstvguide.apiobjects.Channel;
-import net.ceronio.dstvguide.apiobjects.EventInfo;
-import net.ceronio.dstvguide.apiobjects.EventsByChannelList;
-import net.ceronio.dstvguide.apiobjects.Genre;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,19 +12,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Wrapper for the DStv Guide API
+ * Wrapper for the DStv Guide ReST API
  * User: macky
  * Date: 2012/12/21
  * Time: 5:46 PM
  */
-public class APIWrapper {
+public class ReSTAPIWrapper {
 
     /**
-     * Known URL options:
+     * Known URL parameters:
      * apikey (required) = key to access API
      * c = country (two-letter ISO code e.g. ZA)
      * ch = comma-separated list of channels
-     * ct = ???
+     * ct = ??? (e.g. video)
      * d = date (ISO date, YYYY-MM-DD e.g. 2012-03-01)
      * s = ???
      * u = ???
@@ -44,18 +40,18 @@ public class APIWrapper {
 
     private SimpleDateFormat dateFormat;
 
-    private static APIWrapper wrapperInstance;
+    private static ReSTAPIWrapper wrapperInstance;
 
     /**
      * Singleton Method
      * @return Instance of API wrapper class
      */
-    public static APIWrapper getInstance() {
-        if (wrapperInstance==null) wrapperInstance = new APIWrapper();
+    public static ReSTAPIWrapper getInstance() {
+        if (wrapperInstance==null) wrapperInstance = new ReSTAPIWrapper();
         return wrapperInstance;
     }
 
-    private APIWrapper() {
+    private ReSTAPIWrapper() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
@@ -83,6 +79,8 @@ public class APIWrapper {
         }
         return eventInfo;
     }
+
+
 
     /**
      * Get program for list of channels for current date

@@ -1,7 +1,4 @@
-package net.ceronio.dstvguide.apiobjects;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+package net.ceronio.dstvguide.guideapi;
 
 /**
  * User: macky

@@ -1,4 +1,4 @@
-package net.ceronio.dstvguide.apiobjects;
+package net.ceronio.dstvguide.guideapi;
 
 /**
  * User: macky

@@ -1,7 +1,6 @@
 package net.ceronio.dstvguide;
 
 import android.app.Activity;
-import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
@@ -11,7 +10,7 @@ import android.widget.TabHost;
  * Date: 2012/12/23
  * Time: 11:01 AM
  */
-public class MainActivity extends TabActivity {
+public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

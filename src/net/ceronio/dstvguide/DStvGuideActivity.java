@@ -7,9 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import net.ceronio.dstvguide.apiobjects.Channel;
-import net.ceronio.dstvguide.apiobjects.EventsByChannelList;
-import net.ceronio.dstvguide.apiobjects.Genre;
+import net.ceronio.dstvguide.guideapi.Channel;
+import net.ceronio.dstvguide.guideapi.EventsByChannelList;
+import net.ceronio.dstvguide.guideapi.Genre;
+import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class DStvGuideActivity extends Activity implements AdapterView.OnItemSelectedListener {
 
-    private APIWrapper wrapper;
+    private ReSTAPIWrapper wrapper;
     private ApplicationState state;
 
     protected ProgressDialog pd;
@@ -38,7 +39,7 @@ public class DStvGuideActivity extends Activity implements AdapterView.OnItemSel
         setContentView(R.layout.main);
 
         state = ApplicationState.getInstance();
-        wrapper = APIWrapper.getInstance();
+        wrapper = ReSTAPIWrapper.getInstance();
         genreMap = new HashMap<String, Genre>();
 
         pd = ProgressDialog.show(this, "Loading data...", "Loading", true);

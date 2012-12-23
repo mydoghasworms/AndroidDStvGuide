@@ -1,4 +1,4 @@
-package net.ceronio.dstvguide.apiobjects;
+package net.ceronio.dstvguide.guideapi;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +10,7 @@ import java.util.Date;
  */
 public class Schedule {
     private String[] schedInfo;
+
     public Schedule(String[] schedInfo) {
         this.schedInfo = schedInfo;
     }
@@ -19,7 +20,7 @@ public class Schedule {
     }
 
     public Date getStartTime() {
-        return (new Date(Long.parseLong(schedInfo[1])*1000));
+        return (new Date(Long.parseLong(schedInfo[1]) * 1000));
         //return schedInfo[1];
     }
 
@@ -33,5 +34,27 @@ public class Schedule {
     public String getTitle() {
         return schedInfo[3];
     }
+
+    public String getRating() {
+        if (schedInfo.length > 4)
+            return schedInfo[4];
+        else
+            return "";
+    }
+
+    public String getDescription() {
+        if (schedInfo.length > 5)
+            return schedInfo[5];
+        else
+            return "";
+    }
+
+    public String getCategory() {
+        if (schedInfo.length > 6)
+            return schedInfo[6];
+        else
+            return "";
+    }
+
 
 }
