@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DStv Guide</string>
+    <string name="channel_events">Programs</string>
+    <string name="event_detail">Program Detail</string>
+</resources>
