@@ -1,6 +1,7 @@
 package net.ceronio.dstvguide.guideapi;
 
 import com.google.gson.Gson;
+import net.ceronio.dstvguide.BouquetsActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -32,6 +34,9 @@ public class ReSTAPIWrapper {
 
     public static String API_URL = "http://dstvapps.dstv.com/EPGRestService/api/json";
     public static String API_KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
+    public static String SERVICE_GET_BOUQUETS                        = "getBouquets";
+    public static String SERVICE_GET_CHANNELS_BY_PRODUCT             = "getChannelsByProduct";
+    public static String SERVICE_GET_EVENTS_FOR_CHANNEL              = "getEventsForChannel";
     public static String SERVICE_GET_GENRE_LIST_WITH_CHANNEL_NUMBERS = "GetGenreListWithChannelNumbers";
     public static String SERVICE_GET_EVENTS_BY_CHANNEL_LIST          = "GetEventsByChannelList";
     public static String SERVICE_GET_SEARCH_RESULTS                  = "getSearchResults";
@@ -80,8 +85,6 @@ public class ReSTAPIWrapper {
         return eventInfo;
     }
 
-
-
     /**
      * Get program for list of channels for current date
      * @param channelList
@@ -94,12 +97,8 @@ public class ReSTAPIWrapper {
     public EventsByChannelList getEventsByChannelList(int[] channelList, Date date) {
 
         String formattedDate = dateFormat.format(date);
-        // Format list of channels as a comma-separated string
-        String list = "";
-        for(int i=0; i<channelList.length; i++) {
-            if (i>0) list += ",";
-            list += channelList[i];
-        }
+        String list = formatChannelList(channelList);
+
         String uri2 = String.format("%s/%s?apikey=%s&ch=%s&c=ZA&ct=video&d=%s&s=false",
                 API_URL, SERVICE_GET_EVENTS_BY_CHANNEL_LIST, API_KEY, list, formattedDate);
         String uri = API_URL + "/" + SERVICE_GET_EVENTS_BY_CHANNEL_LIST + "/?apikey=" + API_KEY
@@ -120,6 +119,44 @@ public class ReSTAPIWrapper {
             e.printStackTrace();
         }
         return eventsByChannelList;
+    }
+
+    public ChannelEvents getChannelEvents(int channel) {
+        ChannelEvents channelEvents = new ChannelEvents();
+
+        return channelEvents;
+    }
+
+    public Bouquet[] getBouquets() {
+        Bouquet[] bouquets = new Bouquet[]{};
+        try {
+            String uri = API_URL + "/" + SERVICE_GET_BOUQUETS + "/?apikey=" + API_KEY + "&c=ZA";
+            URL url = new URL(uri);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String json = readStream(con.getInputStream());
+            Gson gson = new Gson();
+            String[][] bouquetList = gson.fromJson(json, String[][].class);
+            ArrayList<Bouquet> bouquetArray = new ArrayList<Bouquet>();
+            for (String[] bouquetDescription : bouquetList) {
+                Bouquet bouquet = new Bouquet();
+                if (bouquetDescription.length>0)
+                    bouquet.setID(bouquetDescription[0]);
+                if (bouquetDescription.length>1)
+                    bouquet.setName(bouquetDescription[1]);
+                if (bouquetDescription.length>2)
+                    bouquet.setCode(bouquetDescription[2]);
+                if (bouquetDescription.length>3)
+                    bouquet.setDescription(bouquetDescription[3]);
+                bouquetArray.add(bouquet);
+            }
+            bouquets = bouquetArray.toArray(bouquets);
+        } catch (IOException e) {
+            // TODO provide better feedback by throwing exception
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  bouquets;
     }
 
     /**

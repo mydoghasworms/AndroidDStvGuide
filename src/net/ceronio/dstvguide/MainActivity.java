@@ -1,6 +1,7 @@
 package net.ceronio.dstvguide;
 
 import android.app.Activity;
+import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
@@ -10,17 +11,33 @@ import android.widget.TabHost;
  * Date: 2012/12/23
  * Time: 11:01 AM
  */
-public class MainActivity extends Activity {
+public class MainActivity extends TabActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entrypoint);
+        setup();
     }
 
     private void setup() {
         Intent intentBouquet = new Intent().setClass(this, Activity.class);
-        TabHost tabhost = (TabHost) findViewById(R.id.selectionTabHost);
+        //TabHost tabhost = (TabHost) findViewById(R.id.selectionTabHost);
+        TabHost tabhost = getTabHost();
 
+        // Bouquet Tab
+        TabHost.TabSpec bouquetSpec = tabhost.newTabSpec("Bouquets");
+        bouquetSpec.setIndicator("Bouquets");
+        Intent bouquetsIntent = new Intent(this, BouquetsActivity.class);
+        bouquetSpec.setContent(bouquetsIntent);
+
+        // Search Tab
+        TabHost.TabSpec searchSpec = tabhost.newTabSpec("Search");
+        searchSpec.setIndicator("Search");
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        searchSpec.setContent(searchIntent);
+
+        tabhost.addTab(bouquetSpec);
+        tabhost.addTab(searchSpec);
 
     }
 }
