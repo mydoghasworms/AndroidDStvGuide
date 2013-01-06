@@ -27,7 +27,7 @@ public class MainActivity extends TabActivity {
         // Bouquet Tab
         TabHost.TabSpec bouquetSpec = tabhost.newTabSpec("Bouquets");
         bouquetSpec.setIndicator("Bouquets");
-        Intent bouquetsIntent = new Intent(this, BouquetsActivity.class);
+        Intent bouquetsIntent = new Intent(this, BouquetListActivity.class);
         bouquetSpec.setContent(bouquetsIntent);
 
         // Search Tab
@@ -36,8 +36,15 @@ public class MainActivity extends TabActivity {
         Intent searchIntent = new Intent(this, SearchActivity.class);
         searchSpec.setContent(searchIntent);
 
+        // FavoritesListActivity Tab
+        TabHost.TabSpec favoritesSpec = tabhost.newTabSpec("Favorites");
+        favoritesSpec.setIndicator("Favorites");
+        Intent favoritesIntent = new Intent(this, FavoritesListActivity.class);
+        favoritesSpec.setContent(favoritesIntent);
+
         tabhost.addTab(bouquetSpec);
         tabhost.addTab(searchSpec);
+        tabhost.addTab(favoritesSpec);
 
     }
 }

@@ -1,7 +1,6 @@
 package net.ceronio.dstvguide.guideapi;
 
 import com.google.gson.Gson;
-import net.ceronio.dstvguide.BouquetsActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,10 +25,11 @@ public class ReSTAPIWrapper {
      * apikey (required) = key to access API
      * c = country (two-letter ISO code e.g. ZA)
      * ch = comma-separated list of channels
-     * ct = ??? (e.g. video)
+     * ct = channel type (e.g. video / audio)
      * d = date (ISO date, YYYY-MM-DD e.g. 2012-03-01)
      * s = ???
-     * u = ???
+     * u = ??? User? (Goes with API key)
+     * p = Product (bouquet actually); integer ID of the bouquet
      */
 
     public static String API_URL = "http://dstvapps.dstv.com/EPGRestService/api/json";
@@ -179,6 +179,43 @@ public class ReSTAPIWrapper {
             e.printStackTrace();
         }
         return genres;
+    }
+
+    /**
+     * Get list of channels for a given bouquet
+     * @return
+     */
+    public Channel[] getChannelsByProduct(int bouquetID) {
+        Channel[] channels = new Channel[]{};
+        try {
+            String uri = API_URL + "/" + SERVICE_GET_CHANNELS_BY_PRODUCT + "?apikey=" + API_KEY + "&c=ZA&ct=video&p="
+                    + String.valueOf(bouquetID);
+            URL url = new URL(uri);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            String json = readStream(con.getInputStream());
+            Gson gson = new Gson();
+            String[][] channelList = gson.fromJson(json, String[][].class);
+            ArrayList<Channel> channelArray = new ArrayList<Channel>();
+            for (String[] channelDescription : channelList) {
+                Channel channel = new Channel();
+                if (channelDescription.length>0)
+                    channel.setNum(Integer.valueOf(channelDescription[0]));
+                if (channelDescription.length>1)
+                    channel.setName(channelDescription[1]);
+                if (channelDescription.length>2)
+                    channel.setID(Integer.valueOf(channelDescription[2]));
+                if (channelDescription.length>5)
+                    channel.setImg(channelDescription[5]);
+                channelArray.add(channel);
+            }
+            channels = channelArray.toArray(channels);
+        } catch (IOException e) {
+            // TODO provide better feedback by throwing exception
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  channels;
     }
 
     /**

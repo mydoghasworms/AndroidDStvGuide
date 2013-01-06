@@ -28,6 +28,15 @@ public class ApplicationState {
     private EventsByChannelList selectedChannelList;
     private Schedule selectedSchedule;
     private Channel[] selectedChannels;
+    private String channelListTitle;
+
+    public String getChannelListTitle() {
+        return channelListTitle;
+    }
+
+    public void setChannelListTitle(String channelListTitle) {
+        this.channelListTitle = channelListTitle;
+    }
 
     public Channel[] getSelectedChannels() {
         return selectedChannels;

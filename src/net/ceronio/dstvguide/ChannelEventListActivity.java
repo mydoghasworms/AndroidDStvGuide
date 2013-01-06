@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Date: 2012/12/21
  * Time: 11:15 PM
  */
-public class ChannelEventsActivity extends ListActivity  {
+public class ChannelEventListActivity extends ListActivity  {
 
     private ReSTAPIWrapper wrapper;
     private ApplicationState state;

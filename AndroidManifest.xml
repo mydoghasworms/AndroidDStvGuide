@@ -14,9 +14,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ChannelEventsActivity" android:label="@string/channel_events"/>
+        <activity android:name=".ChannelEventListActivity" android:label="@string/channel_events"/>
         <activity android:name=".EventDetailActivity" android:label="@string/event_detail"/>
-        <activity android:name=".BouquetsActivity"/>
+        <activity android:name=".BouquetListActivity"/>
         <activity android:name=".SearchActivity"/>
+        <activity android:name=".FavoritesListActivity"/>
+        <activity android:name=".ChannelListActivity"/>
     </application>
 </manifest>

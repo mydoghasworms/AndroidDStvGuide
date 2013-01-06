@@ -1,31 +1,31 @@
 package net.ceronio.dstvguide;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import net.ceronio.dstvguide.guideapi.Bouquet;
-import net.ceronio.dstvguide.guideapi.Channel;
-import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
-import net.ceronio.dstvguide.guideapi.Schedule;
+import net.ceronio.dstvguide.guideapi.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * User: macky
  * Date: 2012/12/23
  * Time: 11:43 AM
  */
-public class BouquetsActivity extends ListActivity {
+public class BouquetListActivity extends GenericListActivity {
 
-    ReSTAPIWrapper wrapper = ReSTAPIWrapper.getInstance();
+    private HashMap<String, Genre> genreMap;
+    private Bouquet[] bouquetList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bouquet_selection);
-        Bouquet[] bouquetList = wrapper.getBouquets();
+        bouquetList = wrapper.getBouquets();
 
         ArrayList<String> bouquets = new ArrayList<String>();
         for (Bouquet bouquet : bouquetList) {
@@ -39,6 +39,18 @@ public class BouquetsActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+        ListView listView = (ListView) findViewById(R.id.listView);
+        ArrayList<String> channelList = new ArrayList<String>();
+
+        // Get list of channels for the bouquet and save to app state
+        Bouquet selectedBouquet = bouquetList[position];
+        Channel[] channels = wrapper.getChannelsByProduct(Integer.valueOf(selectedBouquet.getID()));
+        state.setSelectedChannels(channels);
+        state.setChannelListTitle(selectedBouquet.getName());
+
+        // Navigate to channel list
+        Intent intent = new Intent(getApplicationContext(), ChannelListActivity.class);
+        startActivity(intent);
 
     }
 }

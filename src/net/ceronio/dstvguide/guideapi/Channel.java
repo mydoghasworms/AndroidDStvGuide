@@ -37,4 +37,20 @@ public class Channel {
     public int getNum() {
         return Num;
     }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setImg(String img) {
+        Img = img;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    public void setNum(int num) {
+        Num = num;
+    }
 }

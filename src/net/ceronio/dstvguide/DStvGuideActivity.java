@@ -74,7 +74,7 @@ public class DStvGuideActivity extends Activity implements AdapterView.OnItemSel
                 EventsByChannelList channelList = state.getSelectedChannelList();
                 Channel selectedChannel = channelList.getChannels()[position];
                 state.setSelectedChannel(selectedChannel);
-                Intent intent = new Intent(getApplicationContext(), ChannelEventsActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ChannelEventListActivity.class);
                 startActivity(intent);
             }
         });
