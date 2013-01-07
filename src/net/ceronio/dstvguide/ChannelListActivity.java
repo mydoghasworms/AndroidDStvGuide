@@ -1,13 +1,15 @@
 package net.ceronio.dstvguide;
 
-import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import net.ceronio.dstvguide.guideapi.Bouquet;
 import net.ceronio.dstvguide.guideapi.Channel;
-import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
+import net.ceronio.dstvguide.guideapi.ChannelEvents;
+import net.ceronio.dstvguide.guideapi.Schedule;
 
 import java.util.ArrayList;
 
@@ -38,5 +40,23 @@ public class ChannelListActivity extends GenericListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+
+        try {
+
+        // Get list of channels for the bouquet and save to app state
+        Channel selectedChannel = channels[position];
+        ChannelEvents channelEvents = wrapper.getChannelEvents(selectedChannel.getNum(), state.getSelectedDate());
+        state.setSelectedChannel(selectedChannel);
+        state.setSelectedChannelEvents(channelEvents);
+        state.setEventListTitle(channelEvents.getChannelName());
+
+        // Navigate to channel list
+        Intent intent = new Intent(getApplicationContext(), ChannelEventListActivity.class);
+        startActivity(intent);
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), 2000).show();
+        }
+
     }
 }

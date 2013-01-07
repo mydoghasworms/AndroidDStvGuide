@@ -1,5 +1,6 @@
 package net.ceronio.dstvguide.guideapi;
 
+import android.content.Context;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -18,7 +19,7 @@ import java.util.Date;
  * Date: 2012/12/21
  * Time: 5:46 PM
  */
-public class ReSTAPIWrapper {
+public class APIWrapper {
 
     /**
      * Known URL parameters:
@@ -45,18 +46,18 @@ public class ReSTAPIWrapper {
 
     private SimpleDateFormat dateFormat;
 
-    private static ReSTAPIWrapper wrapperInstance;
+    private static APIWrapper wrapperInstance;
 
     /**
      * Singleton Method
      * @return Instance of API wrapper class
      */
-    public static ReSTAPIWrapper getInstance() {
-        if (wrapperInstance==null) wrapperInstance = new ReSTAPIWrapper();
+    public static APIWrapper getInstance() {
+        if (wrapperInstance==null) wrapperInstance = new APIWrapper();
         return wrapperInstance;
     }
 
-    private ReSTAPIWrapper() {
+    private APIWrapper() {
         dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     }
 
@@ -121,8 +122,19 @@ public class ReSTAPIWrapper {
         return eventsByChannelList;
     }
 
-    public ChannelEvents getChannelEvents(int channel) {
+    public ChannelEvents getChannelEvents(int channel, Date date) throws Exception {
         ChannelEvents channelEvents = new ChannelEvents();
+
+        String formattedDate = dateFormat.format(date);
+        String uri = String.format("%s/%s?apikey=%s&ch=%s&c=ZA&ct=video&d=%s",
+                API_URL, SERVICE_GET_EVENTS_FOR_CHANNEL, API_KEY, String.valueOf(channel), formattedDate);
+
+            URL url = new URL(uri);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            if (con.getResponseCode() > 201) throw new Exception(String.format("Web Service Error: %s (%s)", con.getResponseMessage(), con.getResponseCode())); // "Error code: " + con.getResponseCode() + con.getResponseMessage());
+            String json = readStream(con.getInputStream());
+            Gson gson = new Gson();
+            channelEvents = gson.fromJson(json, ChannelEvents.class);
 
         return channelEvents;
     }

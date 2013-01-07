@@ -2,7 +2,11 @@ package net.ceronio.dstvguide;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.TextView;
+import net.ceronio.dstvguide.guideapi.Channel;
 import net.ceronio.dstvguide.guideapi.Schedule;
+
+import java.text.SimpleDateFormat;
 
 /**
  * User: macky
@@ -13,18 +17,27 @@ public class EventDetailActivity extends Activity {
 
     private ApplicationState state;
 
+    protected SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:mm");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event_detail);
         state = ApplicationState.getInstance();
-
+        setup();
     }
 
     private void setup() {
         Schedule schedule = state.getSelectedSchedule();
-        findViewById(R.id.eventDescription);
-
+        Channel channel = state.getSelectedChannel();
+        TextView channelDetail = (TextView) findViewById(R.id.channelDetail);
+        channelDetail.setText(channel.getName());
+        TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
+        eventDescription.setText(schedule.getDescription());
+        TextView timeDetail = (TextView) findViewById(R.id.timeDetail);
+        timeDetail.setText(String.format("%s - %s", simpleTimeFormat.format(schedule.getStartTime()),
+                simpleTimeFormat.format(schedule.getFinishTime())));
     }
 
 

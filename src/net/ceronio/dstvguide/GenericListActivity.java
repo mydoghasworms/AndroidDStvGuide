@@ -2,7 +2,7 @@ package net.ceronio.dstvguide;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
+import net.ceronio.dstvguide.guideapi.APIWrapper;
 
 /**
  * User: macky
@@ -11,13 +11,13 @@ import net.ceronio.dstvguide.guideapi.ReSTAPIWrapper;
  */
 public class GenericListActivity extends ListActivity {
 
-    protected ReSTAPIWrapper wrapper;
+    protected APIWrapper wrapper;
     protected ApplicationState state;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        wrapper = ReSTAPIWrapper.getInstance();
+        wrapper = APIWrapper.getInstance();
         state = ApplicationState.getInstance();
     }
 }

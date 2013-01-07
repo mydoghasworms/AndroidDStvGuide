@@ -24,11 +24,19 @@ public class Schedule {
         //return schedInfo[1];
     }
 
+    public long getStartTimeRaw() {
+        return Long.parseLong(schedInfo[1]);
+    }
+
     public Date getFinishTime() {
         Calendar cal = Calendar.getInstance();
         cal.setTime(getStartTime());
         cal.add(Calendar.SECOND, Integer.parseInt(schedInfo[2]));
         return cal.getTime();
+    }
+
+    public long getFinishTimeRaw() {
+        return Long.parseLong(schedInfo[1]) + Integer.parseInt(schedInfo[2]);
     }
 
     public String getTitle() {
