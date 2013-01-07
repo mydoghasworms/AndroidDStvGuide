@@ -41,7 +41,7 @@ public class ChannelEventListActivity extends GenericListActivity  {
             if (schedule.getStartTimeRaw() <= channelEvents.getNow() &&
                 channelEvents.getNow() <= schedule.getFinishTimeRaw())
                 scrollPosition = position;
-            position += 0;
+            position += 1;
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 R.layout.simple_list_item_1, events.toArray(new String[]{}));
