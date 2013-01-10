@@ -16,14 +16,14 @@ public class MainTest {
 
     void startTest() {
 
-        int[] channels = {101, 103};
-        APIWrapper wrapper = APIWrapper.getInstance();
-        EventsByChannelList events;
-        events = wrapper.getEventsByChannelList((channels));
-        Bouquet[] bouquets = wrapper.getBouquets();
-        for (Bouquet bouquet : bouquets) {
-            System.out.println(String.format("%s %s %s %s", bouquet.getID(), bouquet.getName(), bouquet.getCode(), bouquet.getDescription()));
-        }
+//        int[] channels = {101, 103};
+//        APIWrapper wrapper = APIWrapper.getInstance();
+//        EventsByChannelList events;
+//        events = wrapper.getEventsByChannelList((channels));
+//        Bouquet[] bouquets = wrapper.getBouquets();
+//        for (Bouquet bouquet : bouquets) {
+//            System.out.println(String.format("%s %s %s %s", bouquet.getID(), bouquet.getName(), bouquet.getCode(), bouquet.getDescription()));
+//        }
 
 //        ChannelEvents cevents = wrapper.getChannelEvents(101, new Date());
 //

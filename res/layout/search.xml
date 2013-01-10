@@ -4,5 +4,9 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
-
+    <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <EditText android:layout_width="wrap_content" android:gravity="fill_horizontal" android:layout_weight="80" android:width="0px" android:layout_height="wrap_content" android:id="@+id/search_term"
+                ></EditText>
+    <ImageButton android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/search_button" android:src="@drawable/ic_btn_search"/>
+    </LinearLayout>
 </LinearLayout>

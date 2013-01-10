@@ -10,6 +10,7 @@ public class EventInfo {
     public String description;
     public String rating;
     public String title;
+    public String time;
 
     public String getTime() {
         return time;
@@ -30,6 +31,4 @@ public class EventInfo {
     public String getCode() {
         return code;
     }
-
-    public String time;
 }

@@ -28,7 +28,7 @@ public class ApplicationState {
     }
 
     private Channel selectedChannel;
-    private EventsByChannelList selectedChannelList;
+    //private EventsByChannelList selectedChannelList;
     private Schedule selectedSchedule;
     private Channel[] selectedChannels;
     private String channelListTitle;
@@ -93,12 +93,12 @@ public class ApplicationState {
         this.selectedChannel = selectedChannel;
     }
 
-    public EventsByChannelList getSelectedChannelList() {
-        return selectedChannelList;
-    }
-
-    public void setSelectedChannelList(EventsByChannelList selectedChannelList) {
-        this.selectedChannelList = selectedChannelList;
-    }
+//    public EventsByChannelList getSelectedChannelList() {
+//        return selectedChannelList;
+//    }
+//
+//    public void setSelectedChannelList(EventsByChannelList selectedChannelList) {
+//        this.selectedChannelList = selectedChannelList;
+//    }
 
 }

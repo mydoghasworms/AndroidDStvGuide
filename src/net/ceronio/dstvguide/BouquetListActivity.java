@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import net.ceronio.dstvguide.guideapi.*;
 
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class BouquetListActivity extends GenericListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bouquet_selection);
+
+        try {
+
         bouquetList = wrapper.getBouquets();
 
         ArrayList<String> bouquets = new ArrayList<String>();
@@ -34,6 +38,10 @@ public class BouquetListActivity extends GenericListActivity {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, bouquets.toArray(new String[]{}));
         setListAdapter(adapter);
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), 3000).show();
+        }
     }
 
     @Override
