@@ -1,7 +1,8 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import net.ceronio.dstvguide.ApplicationState;
 import net.ceronio.dstvguide.guideapi.APIWrapper;
 
 /**

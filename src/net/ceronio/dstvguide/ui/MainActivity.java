@@ -1,10 +1,12 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
+import net.ceronio.dstvguide.ApplicationState;
+import net.ceronio.dstvguide.R;
 
 import java.util.Date;
 

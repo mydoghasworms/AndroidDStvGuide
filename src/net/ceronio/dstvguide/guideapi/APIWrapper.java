@@ -22,6 +22,8 @@ import java.util.Date;
 public class APIWrapper {
 
     /**
+     * Information about API obtained from
+     * http://dstvapps.dstv.com/epgrestservice/api/json/help?apikey=bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390
      * Known URL parameters:
      * apikey (required) = key to access API
      * c = country (two-letter ISO code e.g. ZA)
@@ -36,11 +38,12 @@ public class APIWrapper {
     //public static String API_URL = "http://dstvapps.dstv.com/EPGRestService/api/json";
     public static String API_URL = "http://10.129.103.88:8000/EPGRestService/api/json";
     public static String API_KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
+    public static String USER = "3fb11b9b-6aea-475c-b149-26dd1224b390";
     public static String SERVICE_GET_BOUQUETS = "getBouquets";
     public static String SERVICE_GET_CHANNELS_BY_PRODUCT = "getChannelsByProduct";
     public static String SERVICE_GET_EVENTS_FOR_CHANNEL = "getEventsForChannel";
     public static String SERVICE_GET_GENRE_LIST_WITH_CHANNEL_NUMBERS = "GetGenreListWithChannelNumbers";
-    public static String SERVICE_GET_EVENTS_BY_CHANNEL_LIST = "GetEventsByChannelList";
+    //public static String SERVICE_GET_EVENTS_BY_CHANNEL_LIST = "GetEventsByChannelList";
     public static String SERVICE_GET_SEARCH_RESULTS = "getSearchResults";
     public static String EVENT_URL = "http://www.dstv.com/guide/GuideAsyncHandler.ashx";
     public static String IMAGE_ROOT_URL = "http://cdn.dstv.com/www.dstv.com/DStvChannels/";
@@ -80,43 +83,6 @@ public class APIWrapper {
         eventInfo.time = info[5];
         return eventInfo;
     }
-
-//    /**
-//     * Get program for list of channels for current date
-//     *
-//     * @param channelList
-//     * @return Channel and EventDetailActivity information
-//     */
-//    public EventsByChannelList getEventsByChannelList(int[] channelList) {
-//        return getEventsByChannelList(channelList, new Date());
-//    }
-//
-//    public EventsByChannelList getEventsByChannelList(int[] channelList, Date date) {
-//
-//        String formattedDate = dateFormat.format(date);
-//        String list = formatChannelList(channelList);
-//
-//        String uri2 = String.format("%s/%s?apikey=%s&ch=%s&c=ZA&ct=video&d=%s&s=false",
-//                API_URL, SERVICE_GET_EVENTS_BY_CHANNEL_LIST, API_KEY, list, formattedDate);
-//        String uri = API_URL + "/" + SERVICE_GET_EVENTS_BY_CHANNEL_LIST + "/?apikey=" + API_KEY
-//                + "&ch=" + list
-//                + "&c=ZA&ct=video&d=" + formattedDate;
-//        EventsByChannelList eventsByChannelList = null;
-//        try {
-//            URL url = new URL(uri2);
-//            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-//            if (con.getResponseCode() > 201) throw new Exception("Error code: " + con.getResponseCode());
-//            String json = readStream(con.getInputStream());
-//            Gson gson = new Gson();
-//            eventsByChannelList = gson.fromJson(json, EventsByChannelList.class);
-//        } catch (IOException e) {
-//            // TODO provide better feedback by throwing exception
-//            e.printStackTrace();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return eventsByChannelList;
-//    }
 
     public ChannelEvents getChannelEvents(int channel, Date date) throws Exception {
         ChannelEvents channelEvents = new ChannelEvents();

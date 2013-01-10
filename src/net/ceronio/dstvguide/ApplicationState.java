@@ -2,7 +2,6 @@ package net.ceronio.dstvguide;
 
 import net.ceronio.dstvguide.guideapi.Channel;
 import net.ceronio.dstvguide.guideapi.ChannelEvents;
-import net.ceronio.dstvguide.guideapi.EventsByChannelList;
 import net.ceronio.dstvguide.guideapi.Schedule;
 
 import java.util.Date;
@@ -92,13 +91,5 @@ public class ApplicationState {
     public void setSelectedChannel(Channel selectedChannel) {
         this.selectedChannel = selectedChannel;
     }
-
-//    public EventsByChannelList getSelectedChannelList() {
-//        return selectedChannelList;
-//    }
-//
-//    public void setSelectedChannelList(EventsByChannelList selectedChannelList) {
-//        this.selectedChannelList = selectedChannelList;
-//    }
 
 }

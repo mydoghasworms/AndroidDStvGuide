@@ -1,14 +1,11 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.R;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import net.ceronio.dstvguide.guideapi.APIWrapper;
-import net.ceronio.dstvguide.guideapi.Channel;
 import net.ceronio.dstvguide.guideapi.ChannelEvents;
 import net.ceronio.dstvguide.guideapi.Schedule;
 

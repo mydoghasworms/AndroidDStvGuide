@@ -1,4 +1,4 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.app.ListActivity;
 

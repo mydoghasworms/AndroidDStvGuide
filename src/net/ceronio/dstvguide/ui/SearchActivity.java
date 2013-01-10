@@ -1,4 +1,4 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import net.ceronio.dstvguide.R;
 
 /**
  * User: macky

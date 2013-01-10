@@ -1,8 +1,10 @@
-package net.ceronio.dstvguide;
+package net.ceronio.dstvguide.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import net.ceronio.dstvguide.ApplicationState;
+import net.ceronio.dstvguide.R;
 import net.ceronio.dstvguide.guideapi.Channel;
 import net.ceronio.dstvguide.guideapi.Schedule;
 
