@@ -3,10 +3,13 @@ package net.ceronio.dstvguide;
 import android.content.Context;
 import net.ceronio.dstvguide.data.Bouquet;
 import net.ceronio.dstvguide.data.Channel;
+import net.ceronio.dstvguide.data.ChannelEvent;
 import net.ceronio.dstvguide.data.DatabaseHandler;
 import net.ceronio.dstvguide.guideapi.APIWrapper;
+import net.ceronio.dstvguide.guideapi.ChannelEvents;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,7 +44,7 @@ public class DataManager {
     }
 
     public List<Channel> getBouquetChannels(Bouquet bouquet) throws Exception {
-        List<Channel> channels = new ArrayList<Channel>();
+        List<Channel> channels;
         channels = dbh.getBouquetChannels(bouquet);
         if (channels.isEmpty()) {
             String[][] rawBouquetChannels = wrapper.getBouquetChannels(bouquet.getCode());
@@ -53,6 +56,31 @@ public class DataManager {
             dbh.addBouquetChannels(bouquet, channels);
         }
         return channels;
+    }
+
+    public List<ChannelEvent> getChannelEvents(Channel channel, Date date) throws Exception {
+        // TODO: Add persistence for channel events
+        List<ChannelEvent> channelEvents = new ArrayList<ChannelEvent>();
+        ChannelEvents ce = wrapper.getChannelEvents(channel.getNumber(), date);
+        for (String[] event : ce.getSchedulesRaw()) {
+            ChannelEvent channelEvent = new ChannelEvent();
+            channelEvent.setChannel(channel.getNumber());
+            channelEvent.setDate(date);
+            if (event.length>0)
+                channelEvent.setId(event[0]);
+            if (event.length>1)
+                channelEvent.setStartTimeRaw(Long.parseLong(event[1]));
+            if (event.length>2)
+                channelEvent.setDurationRaw(Long.parseLong(event[2]));
+            if (event.length>3)
+                channelEvent.setDescription(event[3]);
+            if (event.length>4)
+                channelEvent.setRating(event[4]);
+            if (event.length>5)
+                channelEvent.setLongDescription(event[5]);
+            channelEvents.add(channelEvent);
+        }
+        return channelEvents;
     }
 
     /**

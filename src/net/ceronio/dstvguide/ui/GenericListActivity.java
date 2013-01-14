@@ -1,6 +1,7 @@
 package net.ceronio.dstvguide.ui;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import net.ceronio.dstvguide.ApplicationState;
 import net.ceronio.dstvguide.DataManager;
@@ -16,6 +17,7 @@ public class GenericListActivity extends ListActivity {
     protected APIWrapper wrapper;
     protected ApplicationState state;
     protected DataManager dataManager;
+    protected Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,5 +25,6 @@ public class GenericListActivity extends ListActivity {
         wrapper = APIWrapper.getInstance();
         state = ApplicationState.getInstance();
         dataManager = DataManager.getInstance(this);
+        context = this;
     }
 }

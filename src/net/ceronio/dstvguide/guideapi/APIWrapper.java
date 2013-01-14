@@ -38,7 +38,7 @@ public class APIWrapper {
     //public static String API_URL = "http://dstvapps.dstv.com/EPGRestService/api/json";
     public static String API_URL = "http://10.129.103.216:8000/EPGRestService/api/json";
     public static String API_KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
-    public static String KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
+    public static String KEY = "bda11d91-7ade-4da1-855d-24adfe39d174";
     public static String USER = "3fb11b9b-6aea-475c-b149-26dd1224b390";
     public static String SERVICE_GET_BOUQUETS = "getBouquets";
     public static String SERVICE_GET_CHANNELS_BY_PRODUCT = "getChannelsByProduct";
@@ -116,7 +116,7 @@ public class APIWrapper {
     public String[][] getBouquetChannels(int bouquetCode) throws Exception {
         //String uri = API_URL + "/" + SERVICE_GET_BOUQUETS + "/?apikey=" + API_KEY + "&c=ZA";
         //http://dstvapps.dstv.com/epgrestservice/api/json/getChannelsByProduct?u=3fb11b9b-6aea-475c-b149-26dd1224b390&ct=video&c=ZA&p=1&apikey=bda11d91-7ade-4da1-855d-24adfe39d174
-        String uri = API_URL + "/" + SERVICE_GET_CHANNELS_BY_PRODUCT + "?u=" + USER + "&c=ZA&p=" + bouquetCode + "&apikey=" + KEY;
+        String uri = API_URL + "/" + SERVICE_GET_CHANNELS_BY_PRODUCT + "?u=" + USER + "&ct=video&c=ZA&p=" + bouquetCode + "&apikey=" + KEY;
         URL url = new URL(uri);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         if (con.getResponseCode() > 201) throw new Exception("Error code: " + con.getResponseCode());

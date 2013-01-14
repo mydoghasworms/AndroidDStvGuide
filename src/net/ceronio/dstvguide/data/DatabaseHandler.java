@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
     public static final String DATABASE_NAME = "guideStore";
 
     public static final String COUNTRY_TABLE = "countries";
@@ -252,22 +252,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     /**
      * Add single channel to list of channels
+     *
      * @param channel
      */
     public void addChannel(Channel channel) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        // For now, just check if the channel exists, and if it doesn't, add it
+        // Because API 7 does not have insertWithOnConflict
+        try {
+            getChannel(channel.getNumber());
+        } catch (DataNotExistException dne) {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues values = new ContentValues();
+            values.put(CHANNEL_COLUMNS.NUMBER.toString(), channel.getNumber());
+            values.put(CHANNEL_COLUMNS.ID.toString(), channel.getId());
+            values.put(CHANNEL_COLUMNS.IMAGE.toString(), channel.getImage());
+            values.put(CHANNEL_COLUMNS.LONG_DESCRIPTION.toString(), channel.getLongDescription());
+            values.put(CHANNEL_COLUMNS.SHORT_DESCRIPTION.toString(), channel.getShortDescription());
 
-        ContentValues values = new ContentValues();
-        values.put(CHANNEL_COLUMNS.NUMBER.toString(), channel.getNumber());
-        values.put(CHANNEL_COLUMNS.ID.toString(), channel.getId());
-        values.put(CHANNEL_COLUMNS.IMAGE.toString(), channel.getImage());
-        values.put(CHANNEL_COLUMNS.LONG_DESCRIPTION.toString(), channel.getLongDescription());
-        values.put(CHANNEL_COLUMNS.SHORT_DESCRIPTION.toString(), channel.getShortDescription());
-
-        //db.insert(CHANNEL_TABLE, null, values);
-        // TODO: Verify the conflict resolution algorithm used here
-        db.insertWithOnConflict(CHANNEL_TABLE, null, values, SQLiteDatabase.CONFLICT_IGNORE);
-        db.close();
+            db.insert(CHANNEL_TABLE, null, values);
+            //db.insertWithOnConflict(CHANNEL_TABLE, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+            db.close();
+        }
     }
 
     /**
@@ -320,7 +325,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         String[] tables = new String[]{COUNTRY_TABLE, CHANNEL_TABLE, FAVORITE_TABLE, GENRE_TABLE, BOUQUET_TABLE,
                 BOUQUET_CHANNEL_TABLE, GENRE_CHANNEL_TABLE};
         for (String table : tables) {
-            db.execSQL(String.format("DROP TABLE IF EXISTS", table));
+            db.execSQL(String.format("DROP TABLE IF EXISTS %s", table));
         }
         onCreate(db);
     }
