@@ -5,6 +5,7 @@ package net.ceronio.dstvguide.guideapi;
  * Date: 2012/12/23
  * Time: 5:12 PM
  */
+@Deprecated
 public class Bouquet {
     String ID;
     String Name;

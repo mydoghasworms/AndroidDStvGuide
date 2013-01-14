@@ -36,8 +36,9 @@ public class APIWrapper {
      */
 
     //public static String API_URL = "http://dstvapps.dstv.com/EPGRestService/api/json";
-    public static String API_URL = "http://10.129.103.88:8000/EPGRestService/api/json";
+    public static String API_URL = "http://10.129.103.216:8000/EPGRestService/api/json";
     public static String API_KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
+    public static String KEY = "bda11d91-7ade-4da1-855d-24adfe39d174&u=3fb11b9b-6aea-475c-b149-26dd1224b390";
     public static String USER = "3fb11b9b-6aea-475c-b149-26dd1224b390";
     public static String SERVICE_GET_BOUQUETS = "getBouquets";
     public static String SERVICE_GET_CHANNELS_BY_PRODUCT = "getChannelsByProduct";
@@ -102,90 +103,26 @@ public class APIWrapper {
         return channelEvents;
     }
 
-    public Bouquet[] getBouquets() throws Exception {
-        Bouquet[] bouquets = new Bouquet[]{};
+    public String[][] getBouquets() throws Exception {
         String uri = API_URL + "/" + SERVICE_GET_BOUQUETS + "/?apikey=" + API_KEY + "&c=ZA";
         URL url = new URL(uri);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        if (con.getResponseCode() > 201) throw new Exception("Error code: " + con.getResponseCode());
         String json = readStream(con.getInputStream());
         Gson gson = new Gson();
-        String[][] bouquetList = gson.fromJson(json, String[][].class);
-        ArrayList<Bouquet> bouquetArray = new ArrayList<Bouquet>();
-        for (String[] bouquetDescription : bouquetList) {
-            Bouquet bouquet = new Bouquet();
-            if (bouquetDescription.length > 0)
-                bouquet.setID(bouquetDescription[0]);
-            if (bouquetDescription.length > 1)
-                bouquet.setName(bouquetDescription[1]);
-            if (bouquetDescription.length > 2)
-                bouquet.setCode(bouquetDescription[2]);
-            if (bouquetDescription.length > 3)
-                bouquet.setDescription(bouquetDescription[3]);
-            bouquetArray.add(bouquet);
-        }
-        bouquets = bouquetArray.toArray(bouquets);
-        return bouquets;
+        return gson.fromJson(json, String[][].class);
     }
 
-    /**
-     * Retrieve list of genres with their respective channel numbers from DStv API
-     *
-     * @return array of Genre
-     */
-    public Genre[] getGenreListWithChannelNumbers() {
-        Genre[] genres = null;
-        try {
-            String uri = API_URL + "/" + SERVICE_GET_GENRE_LIST_WITH_CHANNEL_NUMBERS + "/?apikey=" + API_KEY + "&c=ZA&ct=video";
-            URL url = new URL(uri);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            String json = readStream(con.getInputStream());
-            Gson gson = new Gson();
-            genres = gson.fromJson(json, Genre[].class);
-        } catch (IOException e) {
-            // TODO provide better feedback by throwing exception
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return genres;
-    }
-
-    /**
-     * Get list of channels for a given bouquet
-     *
-     * @return
-     */
-    public Channel[] getChannelsByProduct(int bouquetID) {
-        Channel[] channels = new Channel[]{};
-        try {
-            String uri = API_URL + "/" + SERVICE_GET_CHANNELS_BY_PRODUCT + "?apikey=" + API_KEY + "&c=ZA&ct=video&p="
-                    + String.valueOf(bouquetID);
-            URL url = new URL(uri);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            String json = readStream(con.getInputStream());
-            Gson gson = new Gson();
-            String[][] channelList = gson.fromJson(json, String[][].class);
-            ArrayList<Channel> channelArray = new ArrayList<Channel>();
-            for (String[] channelDescription : channelList) {
-                Channel channel = new Channel();
-                if (channelDescription.length > 0)
-                    channel.setNum(Integer.valueOf(channelDescription[0]));
-                if (channelDescription.length > 1)
-                    channel.setName(channelDescription[1]);
-                if (channelDescription.length > 2)
-                    channel.setID(Integer.valueOf(channelDescription[2]));
-                if (channelDescription.length > 5)
-                    channel.setImg(channelDescription[5]);
-                channelArray.add(channel);
-            }
-            channels = channelArray.toArray(channels);
-        } catch (IOException e) {
-            // TODO provide better feedback by throwing exception
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return channels;
+    public String[][] getBouquetChannels(int bouquetCode) throws Exception {
+        //String uri = API_URL + "/" + SERVICE_GET_BOUQUETS + "/?apikey=" + API_KEY + "&c=ZA";
+        //http://dstvapps.dstv.com/epgrestservice/api/json/getChannelsByProduct?u=3fb11b9b-6aea-475c-b149-26dd1224b390&ct=video&c=ZA&p=1&apikey=bda11d91-7ade-4da1-855d-24adfe39d174
+        String uri = API_URL + "/" + SERVICE_GET_CHANNELS_BY_PRODUCT + "?u=" + USER + "&c=ZA&p=" + bouquetCode + "&apikey=" + KEY;
+        URL url = new URL(uri);
+        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+        if (con.getResponseCode() > 201) throw new Exception("Error code: " + con.getResponseCode());
+        String json = readStream(con.getInputStream());
+        Gson gson = new Gson();
+        return gson.fromJson(json, String[][].class);
     }
 
     /**

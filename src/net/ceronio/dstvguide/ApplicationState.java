@@ -1,10 +1,9 @@
 package net.ceronio.dstvguide;
 
-import net.ceronio.dstvguide.guideapi.Channel;
-import net.ceronio.dstvguide.guideapi.ChannelEvents;
-import net.ceronio.dstvguide.guideapi.Schedule;
+import net.ceronio.dstvguide.data.Channel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * User: macky
@@ -26,38 +25,31 @@ public class ApplicationState {
 
     }
 
-    private Channel selectedChannel;
-    //private EventsByChannelList selectedChannelList;
-    private Schedule selectedSchedule;
-    private Channel[] selectedChannels;
+//    private Channel selectedChannel;
+//    private Schedule selectedSchedule;
+//    private Channel[] selectedChannels;
     private String channelListTitle;
     private String eventListTitle;
     private Date selectedDate;
-    private ChannelEvents selectedChannelEvents;
+//    private ChannelEvents selectedChannelEvents;
 
+    private Channel selectedChannel;
+    private List<Channel> selectedChannels;
 
-    public ChannelEvents getSelectedChannelEvents() {
-        return selectedChannelEvents;
+    public Channel getSelectedChannel() {
+        return selectedChannel;
     }
 
-    public void setSelectedChannelEvents(ChannelEvents selectedChannelEvents) {
-        this.selectedChannelEvents = selectedChannelEvents;
+    public void setSelectedChannel(Channel selectedChannel) {
+        this.selectedChannel = selectedChannel;
     }
 
-    public String getEventListTitle() {
-        return eventListTitle;
+    public List<Channel> getSelectedChannels() {
+        return selectedChannels;
     }
 
-    public void setEventListTitle(String eventListTitle) {
-        this.eventListTitle = eventListTitle;
-    }
-
-    public Date getSelectedDate() {
-        return selectedDate;
-    }
-
-    public void setSelectedDate(Date selectedDate) {
-        this.selectedDate = selectedDate;
+    public void setSelectedChannels(List<Channel> selectedChannels) {
+        this.selectedChannels = selectedChannels;
     }
 
     public String getChannelListTitle() {
@@ -68,28 +60,19 @@ public class ApplicationState {
         this.channelListTitle = channelListTitle;
     }
 
-    public Channel[] getSelectedChannels() {
-        return selectedChannels;
+    public Date getSelectedDate() {
+        return selectedDate;
     }
 
-    public void setSelectedChannels(Channel[] selectedChannels) {
-        this.selectedChannels = selectedChannels;
+    public void setSelectedDate(Date selectedDate) {
+        this.selectedDate = selectedDate;
     }
 
-    public Schedule getSelectedSchedule() {
-        return selectedSchedule;
+    public String getEventListTitle() {
+        return eventListTitle;
     }
 
-    public void setSelectedSchedule(Schedule selectedSchedule) {
-        this.selectedSchedule = selectedSchedule;
+    public void setEventListTitle(String eventListTitle) {
+        this.eventListTitle = eventListTitle;
     }
-    // STATE METHODS
-
-    public Channel getSelectedChannel() {
-        return selectedChannel;
-    }
-    public void setSelectedChannel(Channel selectedChannel) {
-        this.selectedChannel = selectedChannel;
-    }
-
 }

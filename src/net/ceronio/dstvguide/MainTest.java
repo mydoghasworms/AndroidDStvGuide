@@ -1,5 +1,7 @@
 package net.ceronio.dstvguide;
 
+import net.ceronio.dstvguide.data.*;
+import net.ceronio.dstvguide.data.Channel;
 import net.ceronio.dstvguide.guideapi.*;
 
 import java.util.Date;
@@ -15,6 +17,8 @@ public class MainTest {
     }
 
     void startTest() {
+
+        System.out.println(DatabaseHandler.CHANNEL_COLUMNS.LONG_DESCRIPTION.toString());
 
 //        int[] channels = {101, 103};
 //        APIWrapper wrapper = APIWrapper.getInstance();

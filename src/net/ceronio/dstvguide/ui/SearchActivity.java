@@ -35,7 +35,7 @@ public class SearchActivity extends Activity {
             public void onClick(View view) {
                 EditText search_term = (EditText) findViewById(R.id.search_term);
                 Log.i("GUIDE", String.format("Searched for %s", search_term.getText()));
-                Toast.makeText(view.getContext(), String.format("Searched for %s", search_term.getText()), 3000);
+                Toast.makeText(view.getContext(), String.format("Searched for %s", search_term.getText()), 3000).show();
             }
         });
     }

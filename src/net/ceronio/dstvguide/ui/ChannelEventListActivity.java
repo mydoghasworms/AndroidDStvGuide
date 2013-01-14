@@ -26,40 +26,40 @@ public class ChannelEventListActivity extends GenericListActivity  {
         super.onCreate(savedInstanceState);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         ArrayList<String> events = new ArrayList<String>();
-        ChannelEvents channelEvents = state.getSelectedChannelEvents();
-        schedules = channelEvents.getSchedules();
-
-        int scrollPosition = 0;
-        int position = 0; // Why aren't we just using classic for loop
-        for (Schedule schedule : schedules) {
-            events.add(simpleDateFormat.format(schedule.getStartTime()) + " " + schedule.getTitle());
-
-            // Keep track of current time so we know where to scroll to
-            if (schedule.getStartTimeRaw() <= channelEvents.getNow() &&
-                channelEvents.getNow() <= schedule.getFinishTimeRaw())
-                scrollPosition = position;
-            position += 1;
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.simple_list_item_1, events.toArray(new String[]{}));
-        setListAdapter(adapter);
-        setTitle(state.getEventListTitle());
-
-        // Scroll to currently showing program
-        setSelection(scrollPosition);
+//        ChannelEvents channelEvents = state.getSelectedChannelEvents();
+//        schedules = channelEvents.getSchedules();
+//
+//        int scrollPosition = 0;
+//        int position = 0; // Why aren't we just using classic for loop
+//        for (Schedule schedule : schedules) {
+//            events.add(simpleDateFormat.format(schedule.getStartTime()) + " " + schedule.getTitle());
+//
+//            // Keep track of current time so we know where to scroll to
+//            if (schedule.getStartTimeRaw() <= channelEvents.getNow() &&
+//                channelEvents.getNow() <= schedule.getFinishTimeRaw())
+//                scrollPosition = position;
+//            position += 1;
+//        }
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                R.layout.simple_list_item_1, events.toArray(new String[]{}));
+//        setListAdapter(adapter);
+//        setTitle(state.getEventListTitle());
+//
+//        // Scroll to currently showing program
+//        setSelection(scrollPosition);
     }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-
-        // Get selected event and save to app state
-        Schedule schedule = schedules[position];
-        state.setSelectedSchedule(schedule);
-
-        // Navigate to channel list
-        Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
-        startActivity(intent);
+//        super.onListItemClick(l, v, position, id);
+//
+//        // Get selected event and save to app state
+//        Schedule schedule = schedules[position];
+//        state.setSelectedSchedule(schedule);
+//
+//        // Navigate to channel list
+//        Intent intent = new Intent(getApplicationContext(), EventDetailActivity.class);
+//        startActivity(intent);
 
 
     }

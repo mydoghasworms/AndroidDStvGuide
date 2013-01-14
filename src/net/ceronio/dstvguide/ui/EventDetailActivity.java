@@ -31,15 +31,15 @@ public class EventDetailActivity extends Activity {
     }
 
     private void setup() {
-        Schedule schedule = state.getSelectedSchedule();
-        Channel channel = state.getSelectedChannel();
-        TextView channelDetail = (TextView) findViewById(R.id.channelDetail);
-        channelDetail.setText(channel.getName());
-        TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
-        eventDescription.setText(schedule.getDescription());
-        TextView timeDetail = (TextView) findViewById(R.id.timeDetail);
-        timeDetail.setText(String.format("%s - %s", simpleTimeFormat.format(schedule.getStartTime()),
-                simpleTimeFormat.format(schedule.getFinishTime())));
+//        Schedule schedule = state.getSelectedSchedule();
+//        Channel channel = state.getSelectedChannel();
+//        TextView channelDetail = (TextView) findViewById(R.id.channelDetail);
+//        channelDetail.setText(channel.getName());
+//        TextView eventDescription = (TextView) findViewById(R.id.eventDescription);
+//        eventDescription.setText(schedule.getDescription());
+//        TextView timeDetail = (TextView) findViewById(R.id.timeDetail);
+//        timeDetail.setText(String.format("%s - %s", simpleTimeFormat.format(schedule.getStartTime()),
+//                simpleTimeFormat.format(schedule.getFinishTime())));
     }
 
 
