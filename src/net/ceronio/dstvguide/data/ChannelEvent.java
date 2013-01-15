@@ -1,5 +1,6 @@
 package net.ceronio.dstvguide.data;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class ChannelEvent {
@@ -11,6 +12,17 @@ public class ChannelEvent {
     String description;
     String longDescription;
     String rating;
+
+    public Date getStartTime() {
+        return (new Date(startTimeRaw * 1000));
+    }
+
+    public Date getFinishTime() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(getStartTime());
+        cal.add(Calendar.SECOND, durationRaw.intValue());
+        return cal.getTime();
+    }
 
     public String getLongDescription() {
         return longDescription;

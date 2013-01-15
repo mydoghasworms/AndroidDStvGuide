@@ -6,11 +6,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import net.ceronio.dstvguide.data.Channel;
+import net.ceronio.dstvguide.data.ChannelEvent;
 import net.ceronio.dstvguide.guideapi.ChannelEvents;
 import net.ceronio.dstvguide.guideapi.Schedule;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: macky
@@ -19,34 +22,35 @@ import java.util.ArrayList;
  */
 public class ChannelEventListActivity extends GenericListActivity  {
 
-    private Schedule[] schedules;
+    private List<ChannelEvent> channelEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
         ArrayList<String> events = new ArrayList<String>();
-//        ChannelEvents channelEvents = state.getSelectedChannelEvents();
-//        schedules = channelEvents.getSchedules();
-//
-//        int scrollPosition = 0;
-//        int position = 0; // Why aren't we just using classic for loop
-//        for (Schedule schedule : schedules) {
-//            events.add(simpleDateFormat.format(schedule.getStartTime()) + " " + schedule.getTitle());
-//
+        Channel selectedChannel = state.getSelectedChannel();
+        channelEvents = state.getSelectedChannelEvents();
+
+        int scrollPosition = 0;
+        int position = 0; // Why aren't we just using classic for loop
+
+        for (ChannelEvent channelEvent : channelEvents) {
+            events.add(simpleDateFormat.format(channelEvent.getStartTime()) + " " + channelEvent.getDescription());
+
 //            // Keep track of current time so we know where to scroll to
 //            if (schedule.getStartTimeRaw() <= channelEvents.getNow() &&
 //                channelEvents.getNow() <= schedule.getFinishTimeRaw())
 //                scrollPosition = position;
 //            position += 1;
-//        }
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                R.layout.simple_list_item_1, events.toArray(new String[]{}));
-//        setListAdapter(adapter);
-//        setTitle(state.getEventListTitle());
-//
-//        // Scroll to currently showing program
-//        setSelection(scrollPosition);
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                R.layout.simple_list_item_1, events.toArray(new String[]{}));
+        setListAdapter(adapter);
+        setTitle(state.getEventListTitle());
+
+        // Scroll to currently showing program
+        setSelection(scrollPosition);
     }
 
     @Override
